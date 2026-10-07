@@ -1,21 +1,14 @@
-EDGE BIOGENE WEBSITE
-====================
-Files:
-  index.html  - main page (Home + Products page)
-  style.css   - design / colours
-  script.js   - animations, product list, form
-  images/     - product photos
+EDGE BIOGENE WEBSITE (with Cart & Order)
+========================================
+Files: index.html, style.css, script.js, images/
 
-Kaise chalayein:
-  1. Zip ko extract karein.
-  2. index.html par double-click karein - website browser me khul jayegi.
+Chalane ke liye: zip extract karke index.html double-click karein.
+Hosting: poora folder public_html / Netlify / GitHub Pages par upload karein.
 
-Online hosting (domain par):
-  Poora folder (index.html, style.css, script.js, images) hosting ke public_html
-  folder me upload karein. Netlify / GitHub Pages / cPanel sab par chalega.
+Cart / Order: customer Products page par quantity chun kar Add to Cart karta hai,
+naam-phone-address bharkar 'Place Order on WhatsApp' dabata hai. Order aapke
+WhatsApp (+91 70093 50898) par list ke saath aata hai. Online payment nahi hai.
 
-Badlav karne ke liye:
-  - Phone / email / address: index.html me 'Contact' section me.
-  - Products aur unki photos: script.js me 'PR' list aur images/ folder.
-  - WhatsApp number: index.html aur script.js me 917009350898 search karke badlein.
-  - Rang: style.css ke sabse upar --c1, --c2, --c3 variables.
+Badlav: contact details -> index.html | products -> script.js (PR list) + images/
+WhatsApp number -> index.html aur script.js me 917009350898 search karke badlein.
+Rang -> style.css ke upar --c1, --c2, --c3.

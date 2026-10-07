@@ -60,7 +60,7 @@ const PR=[["Plain Blood Tube 4 ml (Clot Activator)", "blood", "Red-top vacuum tu
 const CT=["syr", "ins", "ndl", "edta", "urn", "petri", "tt", "fp", "esr", "nit", "lat", "bnd", "strip", "swab"];
 const CL={lab:'Lab Ware',blood:'Blood Collection',test:'Test Kits',care:'Care & Safety'};
 const pg=document.getElementById('pg');
-const card=(t,c,d,i,e)=>`<div class="pc" data-c="${c}" data-t="${t.toLowerCase()}"><div class="im ${i?'':'ph'} ${CT.includes(i)?'ct':''}">${i?'<img loading="lazy" alt="'+t+'" src="'+IMG[i]+'">':e}</div><div class="bd"><small>${CL[c]}</small><h3>${t}</h3><p>${d||'Available in bulk. Brand and size as per your requirement.'}</p><a class="btn" href="#contact" data-q="${t}">Enquire Now</a></div></div>`;
+const card=(t,c,d,i,e)=>`<div class="pc" data-k="${i||''}" data-c="${c}" data-t="${t.toLowerCase()}"><div class="im ${i?'':'ph'} ${CT.includes(i)?'ct':''}">${i?'<img loading="lazy" alt="'+t+'" src="'+IMG[i]+'">':e}</div><div class="bd"><small>${CL[c]}</small><h3>${t}</h3><p>${d||'Available in bulk. Brand and size as per your requirement.'}</p><div class="qr"><button class="qb" data-d="-1" aria-label="Decrease">−</button><input class="qi" type="number" min="1" max="99999" value="1" aria-label="Quantity"><button class="qb" data-d="1" aria-label="Increase">+</button></div><button class="btn ad" data-t="${t}">🛒 Add to Cart</button></div></div>`;
 pg.innerHTML=PR.map(p=>card(p[0],p[1],p[2],p[3])).join('')+NI.map(p=>card(p[0],p[1],'',null,p[2])).join('');
 function flt(){const f=document.querySelector('#pt .on').dataset.f,q=document.getElementById('q').value.toLowerCase();pg.querySelectorAll('.pc').forEach(x=>x.classList.toggle('hide',(f!=='all'&&x.dataset.c!==f)||!x.dataset.t.includes(q)))}
 document.getElementById('pt').onclick=e=>{if(e.target.dataset.f){document.querySelectorAll('#pt .tab').forEach(x=>x.classList.toggle('on',x===e.target));flt()}};
@@ -71,3 +71,36 @@ lb.onclick=()=>lb.classList.remove('on');
 function route(){const h=location.hash;document.documentElement.classList.toggle('pgmode',h==='#/products');
 if(h==='#/products')scrollTo(0,0);else if(h.length>1){setTimeout(()=>{const el=document.querySelector(h);el&&el.scrollIntoView()},50)}}
 addEventListener('hashchange',route);route();
+
+
+(function(){
+const $=id=>document.getElementById(id);
+let cart={};try{cart=JSON.parse(localStorage.getItem('eb_cart')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('eb_cart',JSON.stringify(cart))}catch(e){}};
+const tot=()=>Object.values(cart).reduce((a,x)=>a+x.q,0);
+function toast(t){const x=$('ts');x.textContent=t;x.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>x.classList.remove('on'),1800)}
+function render(){const ks=Object.keys(cart);$('cc').textContent=tot();$('tt').textContent=tot();
+$('ci').innerHTML=ks.length?ks.map(t=>{const x=cart[t];return `<div class="it" data-t="${t}">${x.k&&IMG[x.k]?'<img alt="" src="'+IMG[x.k]+'">':'<div class="nt">📦</div>'}<div class="nm">${t}<div class="qr"><button class="qb" data-d="-1">−</button><input class="qi" type="number" min="1" value="${x.q}"><button class="qb" data-d="1">+</button></div></div><button class="rm" aria-label="Remove">🗑</button></div>`}).join(''):'<div class="emp">🛒<br>Your cart is empty.<br>Add products from the Products page.</div>'}
+function open(o){$('cd').classList.toggle('on',o);$('co').classList.toggle('on',o);if(o)render()}
+$('cb').onclick=()=>open(true);$('cx').onclick=$('co').onclick=()=>open(false);
+$('cl').onclick=()=>{cart={};save();render();$('cs').style.display='none'};
+const clamp=v=>Math.max(1,Math.min(99999,parseInt(v)||1));
+// product cards
+document.addEventListener('click',e=>{
+const b=e.target.closest('.qb');
+if(b){const i=b.parentNode.querySelector('.qi');i.value=clamp(+i.value+ +b.dataset.d);const it=b.closest('.it');if(it){cart[it.dataset.t].q=+i.value;save();$('cc').textContent=tot();$('tt').textContent=tot()}return}
+const a=e.target.closest('.ad');
+if(a){const c=a.closest('.pc'),q=clamp(c.querySelector('.qi').value),t=a.dataset.t;
+cart[t]={q:(cart[t]?cart[t].q:0)+q,k:c.dataset.k};save();render();c.querySelector('.qi').value=1;
+const cb=$('cb');cb.classList.remove('bump');void cb.offsetWidth;cb.classList.add('bump');toast('✓ '+q+' × '+t+' added to cart')}
+const r=e.target.closest('.rm');if(r){delete cart[r.closest('.it').dataset.t];save();render()}});
+document.addEventListener('change',e=>{if(e.target.classList.contains('qi')){e.target.value=clamp(e.target.value);const it=e.target.closest('.it');if(it){cart[it.dataset.t].q=+e.target.value;save();render()}}});
+$('po').onclick=()=>{const ks=Object.keys(cart);
+if(!ks.length){toast('Cart is empty');return}
+const n=$('cn').value.trim(),p=$('cp').value.trim();if(!n||!p){toast('Please enter name and phone');(n?$('cp'):$('cn')).focus();return}
+const t='*New Order - Edge Biogene*\nName: '+n+'\nPhone: '+p+'\nAddress: '+($('ca').value.trim()||'-')+'\n\n*Items:*\n'+ks.map((k,i)=>(i+1)+'. '+k+'  x '+cart[k].q).join('\n')+'\n\nTotal items: '+tot()+'\nPlease confirm price & availability.';
+const w=$('cw');w.href='https://api.whatsapp.com/send?phone=917009350898&text='+encodeURIComponent(t);
+$('cm').href='mailto:sales.edgebiogene@gmail.com?subject='+encodeURIComponent('Order from '+n)+'&body='+encodeURIComponent(t);
+$('cs').style.display='block';w.click()};
+render();
+})();
