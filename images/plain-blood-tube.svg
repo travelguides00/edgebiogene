@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900">
+<rect width="900" height="900" fill="#fff"/>
+<ellipse cx="450" cy="770" rx="155" ry="22" fill="#e8edf2"/>
+<g filter="url(#shadow)">
+<defs>
+<linearGradient id="glass" x1="0" x2="1"><stop offset="0" stop-color="#b8d6e8" stop-opacity=".55"/><stop offset=".22" stop-color="#fff" stop-opacity=".92"/><stop offset=".62" stop-color="#d6eaf4" stop-opacity=".55"/><stop offset="1" stop-color="#91b9cf" stop-opacity=".65"/></linearGradient>
+<linearGradient id="cap" x1="0" x2="1"><stop offset="0" stop-color="#a91520"/><stop offset=".25" stop-color="#f0444e"/><stop offset=".7" stop-color="#cf1826"/><stop offset="1" stop-color="#8f101a"/></linearGradient>
+<linearGradient id="blood" x1="0" x2="1"><stop offset="0" stop-color="#8e1118"/><stop offset=".4" stop-color="#c92730"/><stop offset="1" stop-color="#790b12"/></linearGradient>
+<filter id="shadow" x="-30%" y="-20%" width="160%" height="160%"><feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#263746" flood-opacity=".18"/></filter>
+</defs>
+<!-- red clot-activator cap -->
+<path d="M337 165 Q337 145 357 145 H543 Q563 145 563 165 V247 Q563 263 547 263 H353 Q337 263 337 247Z" fill="url(#cap)" stroke="#97121d" stroke-width="3"/>
+<rect x="340" y="202" width="220" height="13" rx="4" fill="#a91420" opacity=".7"/>
+<g stroke="#ff8b91" stroke-width="4" opacity=".65"><path d="M354 163v29M370 157v38M386 157v38M402 157v38M418 157v38M434 157v38M450 157v38M466 157v38M482 157v38M498 157v38M514 157v38M530 163v29"/></g>
+<!-- tube body -->
+<path d="M355 258 H545 V674 Q545 726 493 744 Q450 760 407 744 Q355 726 355 674Z" fill="url(#glass)" stroke="#8baebf" stroke-width="4"/>
+<!-- blood/serum inside tube -->
+<path d="M365 596 Q450 607 535 596 V674 Q535 716 491 733 Q450 748 409 733 Q365 716 365 674Z" fill="url(#blood)" opacity=".96"/>
+<path d="M365 596 Q450 607 535 596" fill="none" stroke="#e36a70" stroke-width="4" opacity=".8"/>
+<!-- glass reflections -->
+<path d="M378 277 V665 Q378 701 401 718" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round" opacity=".9"/>
+<path d="M520 281 V570" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".55"/>
+<path d="M393 281 H507" stroke="#d3e5ec" stroke-width="4" opacity=".8"/>
+<!-- label -->
+<rect x="382" y="350" width="136" height="155" rx="8" fill="#fff" stroke="#d4dde4" stroke-width="3"/>
+<rect x="394" y="363" width="112" height="10" rx="4" fill="#c51f2b"/>
+<text x="450" y="401" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#263746">PLAIN</text>
+<text x="450" y="423" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#263746">BLOOD TUBE</text>
+<text x="450" y="452" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#536575">4 mL</text>
+<text x="450" y="477" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#7a8995">CLOT ACTIVATOR</text>
+<rect x="402" y="488" width="96" height="3" rx="1.5" fill="#c51f2b"/>
+</g>
+<text x="450" y="820" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="#52616d">Plain Blood Collection Tube · 4 mL</text>
+</svg>
