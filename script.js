@@ -44,7 +44,7 @@ const IMG={
  "sharps": "images/sharps.jpg",
  "slides": "images/slides.jpg",
  "pipette": "images/pipette.jpg",
- "clot": "images/clot.jpg",
+ "clot": "images/plain-blood-tube.svg",
  "cotton1": "images/cotton1.jpg",
  "cotton2": "images/cotton2.jpg",
  "fist": "images/fist.jpg",
