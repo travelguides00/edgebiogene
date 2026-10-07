@@ -2,8 +2,9 @@ const P=[["Sterilized Urine Container 30/50 ml","lab"],["Petri Dish","lab"],["Gl
 ["Vacuum Blood Collection Needle","blood"],["EDTA Blood Collection Tube","blood"],["Clot Activator (Plain) Tube","blood"],["Pediatric Blood Tubes","blood"],["Syringe 3 ml / 5 ml","blood"],["Insulin Syringe","blood"],
 ["HIV / HBsAg / HCV Rapid Tests","test"],["Malaria Pf/Pv Antigen Test","test"],["Typhoid IgM (Enterocheck)","test"],["Syphilis Rapid Test","test"],["Troponin I & Troponin T","test"],["10 Parameter Urine Strips","test"],["Hemoglobin Cuvettes","test"],
 ["Nitrile Gloves (M / L)","care"],["Latex Examination Gloves","care"],["Absorbent Cotton Roll 500 g","care"],["Adhesive Spot Bandage","care"],["Sharps Waste Container","care"]];
+const KM={"Sterilized Urine Container 30/50 ml":"urn","Petri Dish":"petri","Glass Test Tube":"tt","Filter Paper":"fp","Microscope Glass Slides":"slides","Plastic Pipette":"pipette","Disposable ESR Tube":"esr","Sterilized Swab Stick":"swab","Vacuum Blood Collection Needle":"ndl","EDTA Blood Collection Tube":"edta","Clot Activator (Plain) Tube":"clot","Pediatric Blood Tubes":"edta","Syringe 3 ml / 5 ml":"syr","Insulin Syringe":"ins","HIV / HBsAg / HCV Rapid Tests":"hepa","Malaria Pf/Pv Antigen Test":"malaria","Typhoid IgM (Enterocheck)":"entero","Troponin I & Troponin T":"tropi","10 Parameter Urine Strips":"strip","Hemoglobin Cuvettes":"cuvette","Nitrile Gloves (M / L)":"nit","Latex Examination Gloves":"lat","Absorbent Cotton Roll 500 g":"cotton1","Adhesive Spot Bandage":"bnd","Sharps Waste Container":"sharps"};
 const pr=document.getElementById('prods');
-P.forEach(([t,c])=>{const d=document.createElement('div');d.className='p rv';d.dataset.c=c;d.innerHTML='<b>'+t+'</b><a href="#contact" data-q="'+t+'">Enquire →</a>';pr.appendChild(d)});
+P.forEach(([t,c])=>{const d=document.createElement('div');d.className='p rv';d.dataset.c=c;d.dataset.k=KM[t]||'';d.innerHTML='<b>'+t+'</b><div class="qr"><button class="qb" data-d="-1" aria-label="Decrease">−</button><input class="qi" type="number" min="1" max="99999" value="1" aria-label="Quantity"><button class="qb" data-d="1" aria-label="Increase">+</button></div><button class="btn ad" data-t="'+t+'">🛒 Add to Cart</button>';pr.appendChild(d)});
 document.getElementById('tabs').onclick=e=>{const f=e.target.dataset.f;if(!f)return;document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===e.target));pr.querySelectorAll('.p').forEach(p=>{p.classList.toggle('hide',f!=='all'&&p.dataset.c!==f);p.classList.add('in')})};
 pr.onclick=e=>{const q=e.target.dataset.q;if(q){const m=document.getElementById('m');m.value=(m.value?m.value+'\n':'')+'• '+q+' – Qty: '}};
 document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();
@@ -90,7 +91,7 @@ document.addEventListener('click',e=>{
 const b=e.target.closest('.qb');
 if(b){const i=b.parentNode.querySelector('.qi');i.value=clamp(+i.value+ +b.dataset.d);const it=b.closest('.it');if(it){cart[it.dataset.t].q=+i.value;save();$('cc').textContent=tot();$('tt').textContent=tot()}return}
 const a=e.target.closest('.ad');
-if(a){const c=a.closest('.pc'),q=clamp(c.querySelector('.qi').value),t=a.dataset.t;
+if(a){const c=a.closest('.pc,.p'),q=clamp(c.querySelector('.qi').value),t=a.dataset.t;
 cart[t]={q:(cart[t]?cart[t].q:0)+q,k:c.dataset.k};save();render();c.querySelector('.qi').value=1;
 const cb=$('cb');cb.classList.remove('bump');void cb.offsetWidth;cb.classList.add('bump');toast('✓ '+q+' × '+t+' added to cart')}
 const r=e.target.closest('.rm');if(r){delete cart[r.closest('.it').dataset.t];save();render()}});
@@ -103,4 +104,13 @@ const w=$('cw');w.href='https://api.whatsapp.com/send?phone=917009350898&text='+
 $('cm').href='mailto:sales.edgebiogene@gmail.com?subject='+encodeURIComponent('Order from '+n)+'&body='+encodeURIComponent(t);
 $('cs').style.display='block';w.click()};
 render();
+})();
+
+
+(function(){const n=document.querySelector('nav'),h=document.getElementById('hm');
+function set(o){n.classList.toggle('open',o);h.textContent=o?'✕':'☰';h.setAttribute('aria-expanded',o);h.setAttribute('aria-label',o?'Close menu':'Open menu')}
+h.addEventListener('click',()=>set(!n.classList.contains('open')));
+n.querySelectorAll('ul a').forEach(a=>a.addEventListener('click',()=>set(false)));
+document.addEventListener('click',e=>{if(!n.contains(e.target))set(false)});
+addEventListener('resize',()=>{if(innerWidth>820)set(false)});
 })();

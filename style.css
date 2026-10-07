@@ -45,7 +45,7 @@ h1{font-size:clamp(2.2rem,5.2vw,4.2rem);line-height:1.1;font-weight:800;margin-b
 .p{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;transition:.3s;display:flex;flex-direction:column;gap:10px}
 .p:hover{border-color:var(--c3);transform:translateY(-5px)}
 .p b{font-size:.95rem}.p a{color:var(--c2);font-weight:600;font-size:.85rem;text-decoration:none}
-.p.hide{display:none}
+.p.hide{display:none}.p .btn{padding:9px 18px;font-size:.85rem;border:0;cursor:pointer;text-align:center;color:#fff;width:100%}
 .why{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;max-width:1100px;margin:auto}
 .why ul{list-style:none;display:grid;gap:16px}
 .why li{padding:16px 20px;border-left:3px solid var(--c1);background:var(--card);border-radius:0 14px 14px 0}
@@ -64,7 +64,11 @@ footer{text-align:center;padding:30px 5%;border-top:1px solid var(--line);color:
 @keyframes ring{to{box-shadow:0 0 0 22px rgba(37,211,102,0)}}
 .rv{opacity:0;transform:translateY(40px);transition:1s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
 #bg{position:fixed;inset:0;z-index:-1;opacity:.35}
-@media(max-width:820px){nav ul{display:none}.hero,.why,.contact{grid-template-columns:1fr}.dna{order:-1}.dna svg{width:230px}section{padding:70px 5%}}
+.ham{display:none;margin-left:8px;width:42px;height:42px;border-radius:12px;border:1.5px solid var(--c2);background:#fff;color:var(--c2);font-size:1.4rem;cursor:pointer;line-height:1}
+@media(max-width:820px){.ham{display:block}nav .rt .btn{display:none}
+nav ul{display:flex;flex-direction:column;gap:0;position:absolute;top:100%;left:0;right:0;background:rgba(245,249,255,.98);backdrop-filter:blur(14px);padding:0 5%;max-height:0;overflow:hidden;opacity:0;pointer-events:none;transition:max-height .4s,opacity .3s,padding .3s;border-bottom:1px solid var(--line);box-shadow:0 20px 40px rgba(5,15,50,.12)}
+nav.open ul{max-height:420px;opacity:1;pointer-events:auto;padding:8px 5% 16px}
+nav ul li a{display:block;padding:14px 4px;font-size:1.05rem;border-bottom:1px solid var(--line)}.hero,.why,.contact{grid-template-columns:1fr}.dna{order:-1}.dna svg{width:230px}section{padding:70px 5%}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 
 #pp{display:none;padding-top:110px;min-height:100vh}
